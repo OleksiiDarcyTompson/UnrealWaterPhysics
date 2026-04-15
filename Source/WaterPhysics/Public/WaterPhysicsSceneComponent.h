@@ -81,7 +81,7 @@ protected:
 	bool bWaterInfoGetterThreadSafe = false;
 
 	TSharedPtr<FWaterSurfaceProvider> WaterSurfaceProvider;
-
+	
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Water Physics Settings", meta=(ShowOnlyInnerProperties))
@@ -90,6 +90,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Water Physics Settings", AdvancedDisplay)
 	bool bDrawWaterInfoDebug = false;
 
+	// We can't use a non-static variable (and make it UPROPERTY) because multiple instances of this component are
+	// being created and there's no obvious better way to share this value between them. This list has to be managed externally 
+	// or a better solution has to be implemented. 
+	static TArray<FName> SocketsToIgnore;
+	
 public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Water Physics Events", DisplayName="Pre Step Water Physics Scene")
