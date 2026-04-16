@@ -9,6 +9,8 @@
 #include "WorldAlignedWaterSurfaceProvider.h"
 #include "Components/PrimitiveComponent.h"
 
+TArray<FName> UWaterPhysicsSceneComponent::SocketsToIgnore = {};
+
 UWaterPhysicsSceneComponent::UWaterPhysicsSceneComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -107,7 +109,14 @@ void UWaterPhysicsSceneComponent::AddComponentToWaterPhysics(UActorComponent* Co
 		if (Component->Implements<UWaterPhysicsCollisionInterface>())
 			Sockets = dynamic_cast<IWaterPhysicsCollisionInterface*>(Component)->GetAllBodyNames();
 		else
-			Sockets = PrimitiveComponent->GetAllSocketNames();
+		{
+			auto PrimitiveSockets = PrimitiveComponent->GetAllSocketNames();
+			for (const FName& SocketName : PrimitiveSockets)
+			{
+				if (!SocketsToIgnore.Contains(SocketName))
+					Sockets.Add(SocketName);
+			}
+		}
 
 		Sockets.AddUnique(NAME_None);
 	}
