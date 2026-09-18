@@ -9,7 +9,7 @@ struct FRiverologyWaterBodySetup
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Water Physics")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Water Physics", meta=(AllowedClasses = "/Script/Riverology.RiverologyWater"))
 	AActor* RiverologyWater = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Water Physics")

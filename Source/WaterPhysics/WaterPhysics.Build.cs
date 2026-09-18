@@ -29,6 +29,7 @@ public class WaterPhysics : ModuleRules
 
         PrivateDefinitions.Add("WITH_DEBUG_FORCE_CAPTURE=" + (bIsDebugBuild ? "1" : "0"));
         PrivateDefinitions.Add("WPC_WITH_CHAOS");
+        PrivateDefinitions.Add("WPC_PHYSICS_INTERFACE_PHYSX=0");
         
         bool bBuildWithDebug = Target.Type == TargetType.Editor 
             || (Target.Configuration != UnrealTargetConfiguration.Shipping && Target.Configuration != UnrealTargetConfiguration.Test);
